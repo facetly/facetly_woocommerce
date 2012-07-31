@@ -1,0 +1,60 @@
+#facetly_result{
+  width:550px;
+}
+#facetly_result img, tr, td {
+  vertical-align: top;
+}
+
+#facetly_result img  {
+  width:150px;
+  height:150px;
+}
+
+#facetly_result table {
+  width:100%;
+}
+#facetly_result table, tr, td {
+  padding-right: 30px;
+  padding-bottom: 20px;
+  padding-top: 5px;
+  margin-left: 1px;
+}
+
+#facetly_facet a:link, a:visited {text-decoration: none; color: black;}
+#facetly_facet a:hover {text-decoration: underline; color: #06C;}
+
+.item-list ul.pager {
+  list-style-type: none;
+  /*width:70%;*/
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.item-list ul.pager li {
+  float: left;
+  list-style-type: none;
+  background: none;
+  text-align: center;
+  padding: 5px;
+}
+
+ul.facets {
+  list-style-type: none;
+}
+ul.facets li,ul{
+  list-style-type: none;
+}
+
+/*.item-list ul.pager li a {
+  color: #000000;
+}*/
+
+.item-list ul.pager li a:link, a:visited, a{
+  color: #000000;
+  text-decoration: none;
+}
+
+
+#facetly_result .facetly_loading {
+  text-align: center;
+}
