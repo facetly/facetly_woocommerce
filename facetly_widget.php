@@ -39,4 +39,3 @@
 
 	}
 	add_action( 'widgets_init', create_function( '', 'register_widget( "facetly_widget" );' ) );
-?>
