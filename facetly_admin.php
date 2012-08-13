@@ -43,7 +43,6 @@
 					$zipsource = TEMPLATEPATH. "/searchform.php";
 					$zipdest = TEMPLATEPATH. "/";
 					$backup = zipfile($zipfilename, $zipsource, $zipdest);
-					//unlink(TEMPLATEPATH. "/searchform.php");
 				} else {
 					$backup = true;
 				}
