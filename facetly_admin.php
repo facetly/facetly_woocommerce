@@ -7,10 +7,15 @@
 			$limit = $_POST['facetly_limit'];
 			$add_variable = $_POST['facetly_add_variable']; 
 			
-			$facetly = facetly_api_init();
-		    $facetly->setServer($server);
-		    $facetly->setConsumer($consumer_key, $consumer_secret);
-		    $fields = $facetly->fieldSelect();
+			try {
+				$facetly = facetly_api_init();
+			    $facetly->setServer($server);
+			    $facetly->setConsumer($consumer_key, $consumer_secret);
+			    $fields = $facetly->fieldSelect();
+		    } catch (Exception $e) {
+		    	$error = $e->getMessage();
+		    }
+
 		    if (empty($fields)) {
 		    	echo '<div class="error"><p><strong>Can not connect to server, please check your consumer API configuration or contact our support if problem persist.</strong></p></div>';
 		    } else {
