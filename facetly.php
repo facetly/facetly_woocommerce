@@ -15,21 +15,22 @@
 	require_once('facetly_widget.php');
 
 	function facetly_deactivated() {
-    		delete_option('facetly_fields');
-	    	delete_option('facetly_settings');
-	    	delete_option('facetly_tplpage');
+    	delete_option('facetly_fields');
+	    delete_option('facetly_settings');
+	    delete_option('facetly_tplpage');
 		delete_option('facetly_tplsearch');
 		delete_option('facetly_tplfacet');
     	
-		$unzipsource = TEMPLATEPATH. "/searchform-def-backup.zip";
-		$unzipdest = TEMPLATEPATH. "/";  //folder directory must be ended with "/", example: c:/xampp/htdocs/wordpress/
+		$unzipsource = TEMPLATEPATH. "/searchform.php.zip";
+		$unzipdest = TEMPLATEPATH. "/";
 		$unzip1 = unzipfile($unzipsource, $unzipdest);
+		unlink($unzipsource);
 
-    		if ( is_writable(TEMPLATEPATH) ) {
+    	if ( is_writable(TEMPLATEPATH) ) {
 			$facetly_searchtpl = TEMPLATEPATH. "/facetly-search-template.php";
 			unlink($facetly_searchtpl);
 			$facetly_searchtpl = TEMPLATEPATH. "/searchform.php";
-			unlink($facetly_searchtpl);	
+			unlink($facetly_searchtpl);
 		}
 		$facetly_page = get_page_by_path('finds');;
 		if (!empty($facetly_page)) {

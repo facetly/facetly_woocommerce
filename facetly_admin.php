@@ -1,13 +1,13 @@
 <?php
-	function facetly_admin(){
+	function facetly_admin() {
 		if( !empty($_POST['facetly_settings_hidden']) && $_POST['facetly_settings_hidden'] == 'Y' ) {  
 			$consumer_key = $_POST['facetly_key'];  
 			$consumer_secret = $_POST['facetly_secret'];  
 			$server = $_POST['facetly_server']; 
 			$limit = $_POST['facetly_limit'];
 			$add_variable = $_POST['facetly_add_variable']; 
-			
-			try {
+
+		    try {
 				$facetly = facetly_api_init();
 			    $facetly->setServer($server);
 			    $facetly->setConsumer($consumer_key, $consumer_secret);
@@ -31,14 +31,22 @@
 				?>  
 				<div class="updated"><p><strong><?php _e('Options saved.' ); ?></strong></p></div>  
 				<?php  
-			}
+		    }
 		} else {  
 			$common = get_option('facetly_settings');
-			$consumer_key = $common['key'];
-			$consumer_secret = $common['secret'];
-			$server = $common['server'];
-			$limit = $common['limit'];
-			$add_variable = $common['add_variable'];
+			if (!empty($common)) {
+				$consumer_key = trim($common['key']);
+				$consumer_secret = trim($common['secret']);
+				$server = $common['server'];
+				$limit = $common['limit'];
+				$add_variable = $common['add_variable'];
+			} else {
+				$consumer_key = "";
+				$consumer_secret = "";
+				$server = "";
+				$limit = "";
+				$add_variable = "";
+			}
 		}
 
 		if( !empty($_POST['facetly_copy_hidden']) && $_POST['facetly_copy_hidden'] == 'Y' ) {
@@ -48,14 +56,14 @@
 					$zipsource = TEMPLATEPATH. "/searchform.php";
 					$zipdest = TEMPLATEPATH. "/";
 					$backup = zipfile($zipfilename, $zipsource, $zipdest);
+					unlink(TEMPLATEPATH. "/searchform.php");
 				} else {
 					$backup = true;
 				}
-
 				$unzipsource = WP_PLUGIN_DIR. "/facetly-woocommerce/facetly-search-template.zip";
 				$unzipdest = TEMPLATEPATH. "/";  //folder directory must be ended with "/", example: c:/xampp/htdocs/wordpress/
 				$unzip1 = unzipfile($unzipsource, $unzipdest);
-
+				
 				if ( $backup && $unzip1 ) {
 					$facetly_page = get_page_by_path('finds');;
 					$facetly_page_id = $facetly_page->ID;
@@ -133,5 +141,5 @@
 			</table>
 		</form>  
 	</div> 
-<?php
+	<?php
 	}
