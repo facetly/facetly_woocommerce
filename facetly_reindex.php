@@ -93,17 +93,20 @@
             $url_query = http_build_query($get, '', '&');
             try {
                 $fields = $facetly->fieldSelect();  
-    ?>
-                <div class="wrap">
-        		<?php echo "<h2>" . __('Facetly Configuration') . "</h2>"; ?>  
-        		<?php echo "<h4>" . __('Facetly Reindex') . "</h4>"; ?>  
-                    <form name="facetly_settings" method="post" action="<?php echo str_replace('%7E', '~', $_SERVER['PHP_SELF']) . "?" . $url_query; ?>">      
-                        <p class="submit">  
-                            <input type="submit" name="Submit" value="<?php _e('Start Reindex'); ?>" />  
-                        </p>  
-                    </form>  
-                </div> 
-    <?php
+                $facetly_fields = get_option('facetly_fields');
+                if (!empty($facetly_fields)) {
+                ?>
+                    <div class="wrap">
+            		<?php echo "<h2>" . __('Facetly Configuration') . "</h2>"; ?>  
+            		<?php echo "<h4>" . __('Facetly Reindex') . "</h4>"; ?>  
+                        <form name="facetly_settings" method="post" action="<?php echo str_replace('%7E', '~', $_SERVER['PHP_SELF']) . "?" . $url_query; ?>">      
+                            <p class="submit">  
+                                <input type="submit" name="Submit" value="<?php _e('Start Reindex'); ?>" />  
+                            </p>  
+                        </form>  
+                    </div> 
+                <?php
+                }
             } catch (Exception $e) {
                 echo '<div class="error"><p><strong>'. $e->getMessage(). '</strong></p></div>';
             }

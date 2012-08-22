@@ -1,4 +1,4 @@
-
+jQuery(document).ready(function() {
     var baseurlfile=facetly.baseurl+""+facetly.file;
     var isfacetlypage = false;
   
@@ -139,4 +139,5 @@
         }
 
     });
-    } 
+    }
+});
