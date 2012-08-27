@@ -128,7 +128,7 @@
 				    "key" : "'. $key. '",
 				    "server" : "'. $server. '",
 				    "file" : "finds?'. $add_variable. '",
-				    "baseurl" : "/",
+				    "baseurl" : "'. site_url(). '/",
 				    "limit" : "'. $limit. '",
 				}
 				

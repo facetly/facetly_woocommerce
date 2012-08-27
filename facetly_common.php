@@ -4,7 +4,7 @@
         static $facetly;
         
         if ( empty( $facetly ) ) {
-            require_once("facetly_api.php");
+            require_once('facetly_api.php');
             $common = get_option('facetly_settings');
             $facetly = new facetly_api();
             if (!empty($common)) {
@@ -13,14 +13,14 @@
                 $server = $common['server'];
                 $add_variable = $common['add_variable'];
             } else {
-                $consumer_key = "";
-                $consumer_secret = "";
-                $server = "";
-                $limit = "";
-                $add_variable = "";
+                $consumer_key = '';
+                $consumer_secret = '';
+                $server = '';
+                $limit = '';
+                $add_variable = '';
             }
 
-            $base_url = "/finds?". $add_variable;
+            $base_url = site_url(). '?'. $add_variable;
             $facetly->setConsumer($consumer_key, $consumer_secret); 
             $facetly->setServer($server);
             $facetly->setBaseUrl($base_url);
@@ -84,15 +84,15 @@
     }
 
     function zipfile($filename, $pathsource, $pathdestination) {
-        $pathsource      = str_replace("\\", "/", $pathsource);
-        $pathdestination = str_replace("\\", "/", $pathdestination);
+        $pathsource      = str_replace('\\', '/', $pathsource);
+        $pathdestination = str_replace('\\', '/', $pathdestination);
         
         $fp          = fopen($pathsource, 'r');
         $filecontent = fread($fp, filesize($pathsource));
         fclose($fp);
         
         $zip     = new ZipArchive();
-        $filezip = $filename . ".zip";
+        $filezip = $filename . '.zip';
         
         $compress = $zip->open($pathdestination . $filezip, ZIPARCHIVE::CREATE);
         if ($compress) {
@@ -106,14 +106,14 @@
     }
 
     function unzipfile($pathsource, $pathdestination) {
-        $pathsource      = str_replace("\\", "/", $pathsource);
-        $pathdestination = str_replace("\\", "/", $pathdestination);
+        $pathsource      = str_replace('\\', '/', $pathsource);
+        $pathdestination = str_replace('\\', '/', $pathdestination);
         
         $zip = zip_open($pathsource);
         if ($zip) {
             while ($zip_entry = zip_read($zip)) {
-                $fp = fopen($pathdestination . zip_entry_name($zip_entry), "w");
-                if (zip_entry_open($zip, $zip_entry, "r")) {
+                $fp = fopen($pathdestination . zip_entry_name($zip_entry), 'w');
+                if (zip_entry_open($zip, $zip_entry, 'r')) {
                     $buf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
                     fwrite($fp, "$buf");
                     

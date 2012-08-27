@@ -80,25 +80,23 @@
                 $error         = facetly_reindex_display_error($error_message);
                 delete_option('facetly_error');
                 if (!empty($error_message)) {
-                    if (is_wp_error($error))
-                        echo '<div class="error"><p><strong>' . $error->get_error_message() . '</strong></p></div>';
+                    if (is_wp_error($error)) echo '<div class="error"><p><strong>' . $error->get_error_message() . '</strong></p></div>';
                 } else {
                     echo "<div class='custom_notice'><p><strong>" . __('Reindex Completed') . "</strong></p></div>";
                 }
             }
-            $get            = $_GET;
+            $get = $_GET;
             $get['counter'] = 0;
             $get['reindex'] = 'y';
             
             $url_query = http_build_query($get, '', '&');
             try {
                 $fields = $facetly->fieldSelect();  
-                $facetly_fields = get_option('facetly_fields');
-                if (!empty($facetly_fields)) {
+                if (!empty($fields)) {
                 ?>
                     <div class="wrap">
-            		<?php echo "<h2>" . __('Facetly Configuration') . "</h2>"; ?>  
-            		<?php echo "<h4>" . __('Facetly Reindex') . "</h4>"; ?>  
+                		<?php echo "<h2>" . __('Facetly Configuration') . "</h2>"; ?>  
+                		<?php echo "<h4>" . __('Facetly Reindex') . "</h4>"; ?>  
                         <form name="facetly_settings" method="post" action="<?php echo str_replace('%7E', '~', $_SERVER['PHP_SELF']) . "?" . $url_query; ?>">      
                             <p class="submit">  
                                 <input type="submit" name="Submit" value="<?php _e('Start Reindex'); ?>" />  
@@ -109,9 +107,9 @@
                 }
             } catch (Exception $e) {
                 echo '<div class="error"><p><strong>'. $e->getMessage(). '</strong></p></div>';
-            }
-            if (empty($fields)) {
-                echo '<div class="error"><p><strong>Can not connect to server, please check your consumer API configuration or contact our support if problem persist.</strong></p></div>';
+                if (empty($fields)) {
+                    echo '<div class="error"><p><strong>Can not connect to server, please check your consumer API configuration or contact our support if problem persist.</strong></p></div>';
+                }
             }
         }
     } 
