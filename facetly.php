@@ -59,6 +59,9 @@
 			'post_author' => 1,
 			'menu_order' => 0
 		));
+		$facetly_page_data = get_page_by_path('finds');
+		$facetly_page_id = $facetly_page_data->ID;
+		update_option('facetly_page_id', $facetly_page_id);
 	}
 	register_activation_hook( __FILE__, 'facetly_activated' );
 	
@@ -102,7 +105,8 @@
 	    global $post;
 	    if ($post->post_title == 'Facetly Search') {
 	    	if (!empty($_GET['query'])) {
-					$query = $_GET['query'];
+				$query = stripslashes($_GET['query']);
+				$query = htmlentities($query);
 			} else {
 				$query = '';
 			}
@@ -121,13 +125,16 @@
 			$server = $common['server'];
 			$limit = $common['limit'];
 			$add_variable = $common['add_variable'];
-			
+			$facetly_page_id = get_option('facetly_page_id');
+			$facetly_page_data = get_page($facetly_page_id);
+			$facetly_post_name = $facetly_page_data->post_name;
+
 			echo '
 			<script type="text/javascript">
 				var facetly = {
 				    "key" : "'. $key. '",
 				    "server" : "'. $server. '",
-				    "file" : "finds?'. $add_variable. '",
+				    "file" : "'. $facetly_post_name. '?'. $add_variable. '",
 				    "baseurl" : "'. site_url(). '/",
 				    "limit" : "'. $limit. '",
 				}
@@ -181,8 +188,11 @@
 		}
 	}
 	function facetly_custom_template() {
-		if (strstr($_SERVER['REQUEST_URI'],'/finds')) {
-			include_facetly_template(TEMPLATEPATH . '/facetly-search-template.php');
+		$facetly_page_id = get_option('facetly_page_id');
+		$facetly_page_data = get_page($facetly_page_id);
+		$facetly_post_name = $facetly_page_data->post_name;
+		if (strstr($_SERVER['REQUEST_URI'],'/'. $facetly_post_name)) {
+			facetly_include_template(TEMPLATEPATH . '/facetly-search-template.php');
 		}
 	}
 	add_action('template_redirect', 'facetly_custom_template');
