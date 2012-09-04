@@ -1,31 +1,31 @@
-Facetly Woocommerce
-===================
+Facetly Wordpress
+=================
 
-Install Facetly WooCommerce Plugin
-----------------------------------
+Install Facetly Plugin
+----------------------
 
-How to install Facetly WooCommerce Plugin in wordpress
+How to install Facetly Plugin in wordpress
 
 1. Before Installing Facetly Plugin, make sure you already have these requirements:
     
-    a. Any FTP program, such as WinSCP, FileZilla, etc.
+     a. Any FTP program, such as WinSCP, FileZilla, etc.
     
-    b. wordpress 3.0 or higher (we are not guarantee facetly plugin would be work properly in previous version)
+     b. wordpress 3.0 or higher (we are not guarantee facetly plugin would be work properly in previous version)
     
-    c. Activated Wordpress Woocommerce Plugin depends on your platform, please download this plugin here (http://wordpress.org/extend/plugins/woocommerce/).
+     c. Activated Wordpress E-Commerce depends on your platform, please download this plugin here (http://wordpress.org/extend/plugins/wp-e-commerce/).
 
-    d. Add permalinks in your wordpress, please follow this guide (http://codex.wordpress.org/Settings_Permalinks_Screen)
+     d. Add permalinks in your wordpress, please follow this guide (http://codex.wordpress.org/Settings_Permalinks_Screen).
 
-2. Download Facetly Plugin from github (https://github.com/facetly/facetly_wordpress and upload it to your plugins folder using FTP program
+2. Download Facetly Plugin from github (https://github.com/facetly/facetly_wordpress) and rename folder into facetly then upload it to wordpress >> wp-content >> plugins using FTP program
 
-3. After Facetly Plugin successfully installed in your Wordpress, you will find Facetly Configuration in your admin menu and contain submenus: Facetly Configuration, Fields, Reindex, and Template
+3. After Facetly Plugin successfully installed in your Wordpress, you will find Facetly Settings in your admin menu and contain submenus: Facetly Configuration, Fields, Reindex, and Template
 
 Configure Facetly Plugin
 ------------------------
 
 The next step is set up Facetly Plugin for your store.
 
-1. Input your Consumer Key, Consumer Secret, Server Name, Search Limit, and Additional Variable (as we already seen in previous picture) in Facetly Configuration sub menu.
+1. Input your Consumer Key, Consumer Secret, Server Name, Search Limit, and Additional Variable in Facetly Configuration sub menu.
 
 2. Check your permission for template folder and current active template folder. If the permission is "0777" (rwxrwxrwx), you can just use Copy File feature, otherwise extract facetly-search-template.zip to your current active template folder and make sure you have already backup your "searchform.php" file in your active theme folder if file exists.
 
