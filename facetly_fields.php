@@ -18,6 +18,7 @@
             $default_fields[] = "post_content";
             $default_fields[] = "post_date";
             $default_fields[] = "post_title";
+            $default_fields[] = "post_type";
             
             $custom_fields = $wpdb->get_results($wpdb->prepare("SELECT meta_key, meta_value, post_id FROM $wpdb->postmeta JOIN $wpdb->posts ON post_id = ID WHERE post_type = 'product' AND meta_value <> ''  GROUP BY meta_key"));
             foreach ($custom_fields as $custom_value) {
@@ -46,6 +47,10 @@
             if (!empty($_POST['facetly_fields_hidden']) && $_POST['facetly_fields_hidden'] == 'Y') {
                 foreach ($defined_fields as $defined_value) {
                     $save_field[$defined_value] = $_POST[$defined_value];
+                }
+                $save_field['node_type'] = array();
+                if (!empty($_POST['node_type'])) {
+                    $save_field['node_type'] = $_POST['node_type'];
                 }
                 update_option('facetly_fields', $save_field);
 ?>  
@@ -114,7 +119,30 @@
                         </tr>
                     <?php
                         endforeach;
+                        $facetly_fields = get_option('facetly_fields');
+                        $checked['post'] = "";
+                        $checked['product'] = "";
+                        if (!empty($facetly_fields['node_type'])) {
+                            if (in_array('post', $facetly_fields['node_type'])) {
+                                $checked['post'] = "checked";
+                            } 
+                            if (in_array('product', $facetly_fields['node_type'])) {
+                                $checked['product'] = "checked";
+                            } 
+                        }
+
                     ?>
+                        <tr>
+                            <td>
+                                Node Type:
+                            </td> 
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="node_type[]" value="post" checked=<?php echo $checked['post']; ?>/> post<br />
+                                <input type="checkbox" name="node_type[]" value="product" checked=<?php echo $checked['product']; ?>/> wp woocommerce 
+                            </td>
+                        </tr>
                         <tr>
                             <td>
                                 <p class="submit">  
