@@ -53,16 +53,13 @@
             $ancestors = $post->ancestors[0];
             $post_type = get_post_type($ancestors);
         }
-        //$cat = $post->post_category;
-        /*print_r($post_type);
-        exit();*/
+
         if ($post_type == 'product') {
             $category = 'product_cat'; 
         } else if ($post_type == 'post') {
             $category = 'category';
         }
-        //generate only taxonomy related to post
-        //$facetly_fields = get_option('facetly_fields');
+
         $terms = wp_get_object_terms( $post_id, $category, array('orderby' => 'parent', 'order' => 'DESC', 'fields' => 'all') );
 
         foreach ($terms as $key => $value) {
@@ -173,7 +170,6 @@
         global $wpdb;
 
         $post_id = $post->ID;
-        //$post = get_post($post_id);
         $url = get_permalink($post_id);
         $image = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'full-size' );
         $imageurl = $image['0'];
@@ -199,15 +195,10 @@
         $item['category'] = $category;
         $date = new DateTime($item['created']);
         $item['created'] = $date->getTimestamp() *1000;
-
-        /*if (empty($item['price'])) {
-            $item['price'] = 0;
-        }*/
         
         $facetly = facetly_api_init();
         $facetly->productUpdate($item);
-        //print_r($facetly->productUpdate($item));
-        //exit();
+
     }
     add_action('wp_insert_post', 'facetly_save_post');
 
