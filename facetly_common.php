@@ -1,5 +1,4 @@
 <?php
-
      function facetly_api_init() {
         static $facetly;
         
@@ -53,13 +52,11 @@
             $ancestors = $post->ancestors[0];
             $post_type = get_post_type($ancestors);
         }
-
         if ($post_type == 'product') {
             $category = 'product_cat'; 
         } else if ($post_type == 'post') {
             $category = 'category';
         }
-
         $terms = wp_get_object_terms( $post_id, $category, array('orderby' => 'parent', 'order' => 'DESC', 'fields' => 'all') );
 
         foreach ($terms as $key => $value) {
@@ -195,10 +192,9 @@
         $item['category'] = $category;
         $date = new DateTime($item['created']);
         $item['created'] = $date->getTimestamp() *1000;
-        
+
         $facetly = facetly_api_init();
         $facetly->productUpdate($item);
-
     }
     add_action('wp_insert_post', 'facetly_save_post');
 
