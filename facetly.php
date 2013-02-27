@@ -13,7 +13,7 @@
 	require_once("facetly_reindex.php");
 	require_once("facetly_template.php");
 	require_once('facetly_widget.php');
-
+	
 	function facetly_activated(){
 		add_option('facetly_fields');
 		add_option('facetly_settings');
@@ -21,7 +21,6 @@
 		add_option('facetly_tplsearch');
 		add_option('facetly_tplfacet');
 		add_option('facetly_page_id');
-
 		$facetly_page = wp_insert_post( array(
 			'post_title' => 'Facetly Search',
 			'post_type' => 'page',
@@ -39,6 +38,7 @@
 		$facetly_page_id = $facetly_page_data->ID;
 		update_option('facetly_page_id', $facetly_page_id);  
 	}
+
 	register_activation_hook( __FILE__, function() {
 	  	add_option('activated_plugin','facetly');
 	});
@@ -50,32 +50,24 @@
 	     delete_option('activated_plugin');
 	    }
 	}
+	
 	add_action('activate_facetly', 'facetly_activated');
 
 	function facetly_deactivated() {
-    	delete_option('facetly_fields');
-	    delete_option('facetly_settings');
-	    delete_option('facetly_tplpage');
+		delete_option('facetly_fields');
+		delete_option('facetly_settings');
+		delete_option('facetly_tplpage');
 		delete_option('facetly_tplsearch');
 		delete_option('facetly_tplfacet');
-    	
-		$unzipsource = TEMPLATEPATH. "/searchform.php.zip";
-		$unzipdest = TEMPLATEPATH. "/";
-		$unzip1 = unzipfile($unzipsource, $unzipdest);
-		unlink($unzipsource);
 
-    	if ( is_writable(TEMPLATEPATH) ) {
+		if ( is_writable(TEMPLATEPATH) ) {
 			$facetly_searchtpl = TEMPLATEPATH. "/facetly-search-template.php";
 			unlink($facetly_searchtpl);
-			$facetly_searchtpl = TEMPLATEPATH. "/searchform.php";
-			unlink($facetly_searchtpl);
 		}
-		$facetly_page = get_page_by_path('finds');;
-		if (!empty($facetly_page)) {
-			$facetly_page_id = $facetly_page->ID;
-			wp_delete_post($facetly_page_id, true);
-		}
+		$facetly_page_id = get_option('facetly_page_id');
+		wp_delete_post($facetly_page_id, true);
 	}
+
 	register_deactivation_hook( __FILE__, 'facetly_deactivated' );
 	register_uninstall_hook( __FILE__, 'facetly_deactivated' );
 	

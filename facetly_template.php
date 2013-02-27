@@ -3,10 +3,6 @@
         $facetly = facetly_api_init();
         try {
             $template = $facetly->templateSelect();
-            if (empty($tplfacet) && empty($tplsearch)) {
-                $tplsearch = $template->tplsearch;
-                $tplfacet = $template->tplfacet;
-            }
             $fields = $facetly->fieldSelect();
         } catch (Exception $e) {
             echo '<div class="error"><p><strong>'. $e->getMessage(). '</strong></p></div>';
@@ -32,6 +28,10 @@
         } else {
             $tplsearch = get_option('facetly_tplsearch');
             $tplfacet = get_option('facetly_tplfacet');
+            if (empty($tplfacet) && empty($tplsearch)) {
+                $tplsearch = $template->tplsearch;
+                $tplfacet = $template->tplfacet;
+            }
             if (empty($template)) {
                 echo '<div class="error"><p><strong>Can not connect to server, please check your consumer API configuration or contact our support if problem persist.</strong></p></div>';
             }
