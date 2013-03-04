@@ -20,6 +20,7 @@
                 $node_type[] = "pt.post_type = ". "'". $value. "'";
             }
             $post_type = implode(' OR ', $node_type);
+            
             $query_product = " select pt.ID, pt.post_title from ". $wpdb->prefix. "posts As pt  ";
             $query_product .= " LEFT JOIN ". $wpdb->prefix. "postmeta As mt ON pt.ID=mt.post_id WHERE ";
             $query_product .= "(". $post_type.")";

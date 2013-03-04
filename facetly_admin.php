@@ -15,25 +15,25 @@
 				    $facetly->setServer($server);
 				    $facetly->setConsumer($consumer_key, $consumer_secret);
 				    $fields = $facetly->fieldSelect();
+				    
+				    if (empty($fields)) {
+				    	echo '<div class="error"><p><strong>Can not connect to server, please check your consumer API configuration or contact our support if problem persist.</strong></p></div>';
+				    } else {
+						$settings = array(
+							'key' => $consumer_key,
+							'secret' => $consumer_secret,
+							'server' => $server,
+							'limit' => $limit,
+							'add_variable' => $add_variable,
+						);
+
+						update_option('facetly_settings', $settings);  
+						?>  
+						<div class="updated"><p><strong><?php _e('Options saved.' ); ?></strong></p></div>  
+						<?php  
+				    }
 			    } catch (Exception $e) {
 			    	$error = $e->getMessage();
-			    }
-
-			    if (empty($fields)) {
-			    	echo '<div class="error"><p><strong>Can not connect to server, please check your consumer API configuration or contact our support if problem persist.</strong></p></div>';
-			    } else {
-					$settings = array(
-						'key' => $consumer_key,
-						'secret' => $consumer_secret,
-						'server' => $server,
-						'limit' => $limit,
-						'add_variable' => $add_variable,
-					);
-
-					update_option('facetly_settings', $settings);  
-					?>  
-					<div class="updated"><p><strong><?php _e('Options saved.' ); ?></strong></p></div>  
-					<?php  
 			    }
 			}
 		} else {  
@@ -52,7 +52,6 @@
 				$add_variable = "";
 			}
 		}
-
 	?> 
 		<div class="wrap">  
 			<?php    echo "<h2>" . __( 'Facetly Configuration' ) . "</h2>"; ?>  
